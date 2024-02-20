@@ -1,35 +1,40 @@
 import { useState, useRef } from "react";
 import "./Game.css";
 
-const Game = ({verifyLetter, pickedWord, pickedCategory, letters, 
-    guessedLetters,wrongLetters, guesses, score}) => {
+const Game = ({
+  verifyLetter,
+  pickedWord,
+  pickedCategory,
+  letters,
+  guessedLetters,
+  wrongLetters,
+  guesses,
+  score,
+}) => {
+  const [letter, setLetter] = useState("");
+  const letterInputRef = useRef(null);
 
-        const [letter, setLetter] = useState("");
-        const letterInputRef = useRef(null)
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
+    verifyLetter(letter);
 
-            verifyLetter(letter);
+    setLetter("");
 
-            setLetter("");
-
-            letterInputRef.current.focus();
-        }
+    letterInputRef.current.focus();
+  };
 
   return (
     <div className="game">
-        <p className="points">
-            <span>Pontuação: {score}</span>
-        </p>
-        <h1>
-            Adivinhe a palavra:
-        </h1>
-        <h3 className="tip">
-            Dica sobre a palavra: <span>{pickedCategory}</span>
-        </h3>
-        <p>Você ainda tem {guesses} tentativas(s).</p>
-        <div className="wordContainer">
+      <p className="points">
+        <span>Pontuação: {score}</span>
+      </p>
+      <h1>Adivinhe a palavra:</h1>
+      <h3 className="tip">
+        Dica sobre a palavra: <span>{pickedCategory}</span>
+      </h3>
+      <p>Você ainda tem {guesses} tentativas(s).</p>
+      <div className="wordContainer">
         {letters.map((letter, i) =>
           guessedLetters.includes(letter) ? (
             <span className="letter" key={i}>
@@ -61,9 +66,8 @@ const Game = ({verifyLetter, pickedWord, pickedCategory, letters,
           <span key={i}>{letter}, </span>
         ))}
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;
